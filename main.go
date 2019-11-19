@@ -11,13 +11,13 @@ const baseURL string = "https://k-blog0130.herokuapp.com/api/v2/"
 
 func main() {
 	var categories string = getCategories()
-	fmt.Println(categories )
+	fmt.Println(categories)
 
 	var tags string = getTags()
 	fmt.Println(tags)
 }
 
-func getCategories()string {
+func getCategories() string {
 	url := fmt.Sprintf(baseURL + "categories")
 	res, err := http.Get(url)
 	if err != nil {
@@ -32,7 +32,7 @@ func getCategories()string {
 	return string(body)
 }
 
-func getTags() string{
+func getTags() string {
 	url := fmt.Sprintf(baseURL + "tags")
 	res, err := http.Get(url)
 
