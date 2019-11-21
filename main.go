@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	"./printers"
 )
 
 const baseURL string = "https://k-blog0130.herokuapp.com/api/v2/"
@@ -50,9 +52,8 @@ func (c *Client) getTags() string {
 func main() {
 	client := Client{baseURL: "https://k-blog0130.herokuapp.com/api/v2/"}
 	var categories string = client.getCategories()
-	fmt.Println(categories)
+	printers.Display(categories, "CATEGORIES")
 
 	var tags string = client.getTags()
-	fmt.Println(tags)
-
+	printers.Display(tags, "TAGS")
 }
