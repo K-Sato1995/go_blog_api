@@ -9,46 +9,50 @@ import (
 
 const baseURL string = "https://k-blog0130.herokuapp.com/api/v2/"
 
+// Client represents api clients
+type Client struct {
+	baseURL string
+}
+
+func (c *Client) getCategories() string {
+	url := fmt.Sprintf(c.baseURL + "categories")
+
+	res, err := http.Get(url)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	return string(body)
+}
+
+func (c *Client) getTags() string {
+	url := fmt.Sprintf(c.baseURL + "tags")
+	res, err := http.Get(url)
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	body, err := ioutil.ReadAll(res.Body)
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	return string(body)
+}
+
 func main() {
-	var categories string = GetCategories()
+	client := Client{baseURL: "https://k-blog0130.herokuapp.com/api/v2/"}
+	var categories string = client.getCategories()
 	fmt.Println(categories)
 
-	var tags string = GetTags()
+	var tags string = client.getTags()
 	fmt.Println(tags)
+
 }
-
-// GetCategories gets categories
-func GetCategories() string {
-	url := fmt.Sprintf(baseURL + "categories")
-	res, err := http.Get(url)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	return string(body)
-}
-
-// GetTags gets tags
-func GetTags() string {
-	url := fmt.Sprintf(baseURL + "tags")
-	res, err := http.Get(url)
-
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	return string(body)
-}
-
-// https://medium.com/@marcus.olsson/writing-a-go-client-for-your-restful-api-c193a2f4998c
-// https://www.scaledrone.com/blog/creating-an-api-client-in-go/
