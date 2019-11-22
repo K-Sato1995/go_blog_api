@@ -16,7 +16,8 @@ type Client struct {
 	baseURL string
 }
 
-func (c *Client) getCategories() string {
+// GetCategories gets categories and return it as a string.
+func (c *Client) GetCategories() string {
 	url := fmt.Sprintf(c.baseURL + "categories")
 
 	res, err := http.Get(url)
@@ -32,7 +33,8 @@ func (c *Client) getCategories() string {
 	return string(body)
 }
 
-func (c *Client) getTags() string {
+// GetTags gets tags and return it as a stringnd return it as a string.
+func (c *Client) GetTags() string {
 	url := fmt.Sprintf(c.baseURL + "tags")
 	res, err := http.Get(url)
 
@@ -51,9 +53,9 @@ func (c *Client) getTags() string {
 
 func main() {
 	client := Client{baseURL: "https://k-blog0130.herokuapp.com/api/v2/"}
-	var categories string = client.getCategories()
+	var categories string = client.GetCategories()
 	printers.Display(categories, "CATEGORIES")
 
-	var tags string = client.getTags()
+	var tags string = client.GetTags()
 	printers.Display(tags, "TAGS")
 }
