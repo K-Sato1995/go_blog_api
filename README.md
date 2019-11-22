@@ -1,4 +1,4 @@
-# How to use it
+# Usage
 
 Create a client and use the defined functions like the code below.
 
